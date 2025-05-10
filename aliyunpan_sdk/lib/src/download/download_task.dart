@@ -384,8 +384,9 @@ class DownloadTaskRunner {
           method: task._url!.method,
         ));
     cancelToken.cancel(); // abort the request
-    final acceptRangesHeader =
-        response.headers.value(HttpHeaders.acceptRangesHeader);
+
+    final List<String>? acceptRanges = response.headers[HttpHeaders.acceptRangesHeader];
+    final acceptRangesHeader = acceptRanges?.first;
     final lengthHeader =
         response.headers.value(HttpHeaders.contentLengthHeader);
     final length = lengthHeader == null ? null : int.tryParse(lengthHeader);
